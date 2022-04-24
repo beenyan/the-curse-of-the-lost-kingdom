@@ -104,7 +104,7 @@ router.get('/backpack', (req, res) => {
  * 背包新增寶物
  */
 router.post('/backpack', (req, res) => {
-  const { code, qrcode } = req.session.team;
+  const { code, qrcode } = req.body;
   if (code === undefined && qrcode === undefined) return res.status(400).join({ msg: 'fail' });
   const team_id = req.session.team.id;
 

@@ -2,7 +2,21 @@
   <NavbarVue />
 
   <div class="d-flex flex-wrap mb-4 content-box" style="justify-content: space-around">
-    <a
+    <router-link
+      class="block mb-3 link-box"
+      v-for="linkBox of linkBoxList"
+      :disabled="linkBox.href === ''"
+      :key="linkBox.name"
+      :to="linkBox.href"
+    >
+      <div class="link-body" v-if="linkBox.icon">
+        <div class="font-icon">
+          <font-awesome-icon :icon="linkBox.icon" />
+        </div>
+        <p class="m-0">{{ linkBox.name }}</p>
+      </div>
+    </router-link>
+    <!-- <a
       class="block mb-3 link-box"
       v-for="linkBox of linkBoxList"
       :disabled="linkBox.href === ''"
@@ -15,7 +29,7 @@
         </div>
         <p class="m-0">{{ linkBox.name }}</p>
       </div>
-    </a>
+    </a> -->
   </div>
 
   <!-- <div class="tool-box" :class="{ active: isOpen }" id="tool">
@@ -37,22 +51,24 @@
 </template>
 
 <script setup>
+import { RouterLink } from 'vue-router';
+
 import { ref } from 'vue';
 import NavbarVue from '../components/navbarVue.vue';
 
 const linkBoxList = ref([
   {
-    href: './manage/user',
+    href: '/manage/user',
     icon: 'users',
     name: '人員管理',
   },
   {
-    href: './manage/team',
+    href: '/manage/team',
     icon: 'flag',
     name: '隊伍管理',
   },
   {
-    href: './manage/treasure',
+    href: '/manage/treasure',
     icon: 'gem',
     name: '寶物',
   },
