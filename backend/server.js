@@ -5,8 +5,6 @@ const express = require('express');
 const compression = require('compression');
 const dotenv = require('dotenv');
 const config = require('./config');
-const cors = require('cors');
-const cookie = require('cookie-parser');
 
 dotenv.config();
 const app = express();
@@ -15,9 +13,9 @@ const port = process.env.PORT || 443;
 const manageRouter = require('./routes/manage');
 const apiRouter = require('./routes/api');
 
-app.use(cookie());
 app.use(config.session);
 app.use('/api/', config.corsOptions);
+
 app.use(compression()); // 壓縮所有 routor
 app.use('/', express.static('dist/'));
 
@@ -27,6 +25,7 @@ app.use(express.json());
 
 app.use('/manageapi', manageRouter);
 app.use('/api', apiRouter);
+
 app.use((req, res) => {
   res.status(200).sendFile('/dist/index.html', { root: process.cwd() });
 });

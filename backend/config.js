@@ -22,19 +22,14 @@ const config = {
     cookie: {
       maxAge: 24 * 60 * 60 * 1000, // 1 day
       sameSite: 'strict',
+      path: '/',
     },
     store: sessionStore,
   }),
   corsOptions: cors({
-    origin: function (origin, callback) {
-      if ('https://36.232.49.211:440' === origin) {
-        return callback(null, true);
-      }
-      const time = moment().format('YYYY-MM-DD HH:mm:ss');
-      const msg = `[${time}] ${origin} Not allowed by CORS\n`;
-      fs.appendFile('./logs/error.log', msg, (err) => err);
-      callback(msg);
-    },
+    origin: ['https://36.232.49.211:440'],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
   }),
   morgan: morgan(':remote-addr [:date[clf]] :method :status :response-time[3] ms "[HTTP::http-version] :url"', {
     stream: accessLogStream,
