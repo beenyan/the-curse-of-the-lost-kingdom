@@ -19,16 +19,13 @@ const config = {
     secret: 'passwordhashdontlookit',
     resave: false,
     saveUninitialized: true,
-    unset: 'destroy',
     cookie: {
       maxAge: 24 * 60 * 60 * 1000, // 1 day
-      httpOnly: true,
-      sameSite: 'none',
+      sameSite: 'strict',
     },
     store: sessionStore,
   }),
   corsOptions: cors({
-    credentials: true,
     origin: function (origin, callback) {
       if ('https://36.232.49.211:440' === origin) {
         return callback(null, true);
