@@ -1,17 +1,20 @@
-import { faTentArrowTurnLeft } from '@fortawesome/free-solid-svg-icons';
-import { faL } from '@fortawesome/free-solid-svg-icons';
+const db = require('../connect');
 
 class Treasure {
   constructor() {
+    this.name = '';
     this.dependList = [];
     this.consumables = false;
 
     Object.assign(this, ...arguments);
   }
-  checkInBackpack(team_id) {
-    // db.query('DELETE FROM `treasure WHERE code = ?`',[this.code])
-    // return ture if has
-    return Boolean;
+  isInBackpack(team_id) {
+    return new Promise((resolve, reject) => {
+      const sql = 'SELECT count(id) as count WHERE teamd_id = ? AND treasure_code = ?';
+      db.query(sql, [team_id, this.name]).then(([rows]) => {
+        resolve(rows[0].count);
+      });
+    });
   }
   inserToDb() {
     // 將取的寶寶物嘉進資料入
@@ -84,4 +87,4 @@ const treasureList = {
   konpinla2: new Konpinla(),
 };
 
-export default treasureList;
+module.exports = treasureList;

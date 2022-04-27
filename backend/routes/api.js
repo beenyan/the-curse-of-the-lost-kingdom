@@ -2,10 +2,9 @@ const express = require('express');
 const path = require('path');
 const { dirname } = require('path');
 const moment = require('moment');
-const CryptoJS = require('crypto-js');
+const treasureList = require(path.join(__dirname, '../assets/treasure'));
 const db = require(path.join(dirname(require.main.filename), 'connect'));
 
-CryptoJS.key = 'secret';
 const router = express.Router();
 const isLogin = (req) => {
   if (req.session.team === undefined) return false;
@@ -57,7 +56,7 @@ router.all('*', (req, res, next) => {
  */
 router.get('/team', (req, res) => {
   const { id } = req.session.team;
-  db.query('SELECT * FROM team WHERE id = ?', [id])
+  db.query('SELECT `id`, `name`, `money`, `kind`, `horus` FROM team WHERE id = ?', [id])
     .then(([team]) => {
       return res.status(200).json(team[0]);
     })
@@ -72,12 +71,13 @@ router.get('/team', (req, res) => {
 router.post('/team_name', (req, res) => {
   const { name } = req.body;
   if (name === undefined) return res.status(401).json({ msg: 'fail' });
+  const { id } = req.session.team;
   const teamName = name.trim();
 
-  db.query('INSERT INTO (name) VALUES (?)', [teamName])
+  db.query('UPDATE team SET name = ? WHERE id = ?', [teamName, id])
     .then(([ResultSetHeader]) => {
       if (ResultSetHeader.affectedRows === 0) {
-        return res.status(401).json({ msg: 'fail' });
+        return res.status(403).json({ msg: 'fail' });
       }
       return res.status(200).json({ msg: 'success' });
     })
@@ -103,51 +103,18 @@ router.get('/backpack', (req, res) => {
 /**
  * 背包新增寶物
  */
-router.post('/backpack', (req, res) => {
-  const { code, qrcode } = req.body;
-  if (code === undefined && qrcode === undefined) return res.status(400).join({ msg: 'fail' });
-  const team_id = req.session.team.id;
-
-  const insert_backpack = (res, team_id, treasure_code) => {
-    db.query('INSERT INTO backpack (team_id, treasure_code) VALUE (?, ?)', [team_id, treasure_code])
-      .then(([ResultSetHeader]) => {
-        if (ResultSetHeader.affectedRows === 0) {
-          return res.status(401).json({ msg: 'fail' });
-        }
-        return res.status(200).json({ msg: 'success' });
-      })
-      .catch((err) => {
-        console.log(err);
-        return res.status(400).join({ msg: 'fail' });
-      });
-  };
-  if (code) {
-    const team_id = req.session.team.id;
-    insert_backpack(res, team_id, code);
-  } else if (qrcode) {
-    const { team, treasure } = CryptoJS.AES.decrypt(qrcode, CryptoJS.key).toString(CryptoJS.enc.Utf8);
-    if (team === undefined || treasure === undefined) return res.status(400).join({ msg: 'fail' });
-    else if (team !== team_id) return res.status(400).join({ msg: '隊伍錯誤' });
-
-    insert_backpack(res, team, treasure);
-  }
-});
-
-/**
- * 取得背包擁有的寶物
- */
-router.get('/use_treasure/:code', (req, res) => {
-  const { code } = req.params;
+router.post('/backpack', async (req, res) => {
+  const { code } = req.body;
   const { id } = req.session.team;
-  const sql = 'SELECT * FROM backpack LEFT JOIN treasure AS t on t.code = ? WHERE team_id = ? AND treasure_code = ?';
-  db.query(sql, [code, id, code])
-    .then(([treasureList]) => {
-      if (treasureList.length === 0) return res.status(400).join({ msg: 'fail' });
-      const treasure = treasureList[0];
-    })
-    .catch((err) => {
-      return res.status(400).join({ msg: 'fail' });
-    });
+
+  // 寶物碼錯誤
+  if (!Object.prototype.hasOwnProperty.call(treasureList, code)) {
+    return res.status(403).json({ msg: 'fail' });
+  }
+
+  const treasure = treasureList[code];
+  // 新增寶物
+  treasure.getHandler(id);
 });
 
 router.all('*', (req, res) => {

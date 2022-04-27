@@ -16,20 +16,6 @@
         <p class="m-0">{{ linkBox.name }}</p>
       </div>
     </router-link>
-    <!-- <a
-      class="block mb-3 link-box"
-      v-for="linkBox of linkBoxList"
-      :disabled="linkBox.href === ''"
-      :href="linkBox.href"
-      :key="linkBox.name"
-    >
-      <div class="link-body" v-if="linkBox.icon">
-        <div class="font-icon">
-          <font-awesome-icon :icon="linkBox.icon" />
-        </div>
-        <p class="m-0">{{ linkBox.name }}</p>
-      </div>
-    </a> -->
   </div>
 
   <!-- <div class="tool-box" :class="{ active: isOpen }" id="tool">
@@ -68,7 +54,7 @@ const linkBoxList = ref([
     name: '隊伍管理',
   },
   {
-    href: '/manage/treasure',
+    href: '',
     icon: 'gem',
     name: '寶物',
   },
