@@ -111,3 +111,49 @@
     at C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\routes\api.js:51:3
 [2022-04-27T17:02:10+08:00] undefined
 [2022-04-27 17:02:10] undefined Not allowed by CORS
+[2022-04-27T20:07:51+08:00] undefined
+[2022-04-27 20:07:51] https://36.232.49.211:440 Not allowed by CORS
+[2022-04-27T20:09:36+08:00] TypeError: req.cookies is not a function
+    at C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\server.js:22:19
+    at Layer.handle [as handle_request] (C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\express@4.17.3\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\express@4.17.3\node_modules\express\lib\router\index.js:323:13)
+    at C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\express@4.17.3\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\express@4.17.3\node_modules\express\lib\router\index.js:341:12)
+    at next (C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\express@4.17.3\node_modules\express\lib\router\index.js:275:10)
+    at cors (C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\cors@2.8.5\node_modules\cors\lib\index.js:188:7)
+    at C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\cors@2.8.5\node_modules\cors\lib\index.js:224:17
+    at origin (C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\config.js:32:16)
+    at C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\cors@2.8.5\node_modules\cors\lib\index.js:219:13
+[2022-04-27T20:09:40+08:00] TypeError: req.cookies is not a function
+    at C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\server.js:22:19
+    at Layer.handle [as handle_request] (C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\express@4.17.3\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\express@4.17.3\node_modules\express\lib\router\index.js:323:13)
+    at C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\express@4.17.3\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\express@4.17.3\node_modules\express\lib\router\index.js:341:12)
+    at next (C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\express@4.17.3\node_modules\express\lib\router\index.js:275:10)
+    at cors (C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\cors@2.8.5\node_modules\cors\lib\index.js:188:7)
+    at C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\cors@2.8.5\node_modules\cors\lib\index.js:224:17
+    at origin (C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\config.js:32:16)
+    at C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\cors@2.8.5\node_modules\cors\lib\index.js:219:13
+[2022-04-27T20:26:53+08:00] ReferenceError: user is not defined
+    at C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\server.js:33:22
+    at Layer.handle [as handle_request] (C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\express@4.17.3\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\express@4.17.3\node_modules\express\lib\router\index.js:323:13)
+    at C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\express@4.17.3\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\express@4.17.3\node_modules\express\lib\router\index.js:341:12)
+    at next (C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\express@4.17.3\node_modules\express\lib\router\index.js:275:10)
+    at C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\server.js:29:3
+    at Layer.handle [as handle_request] (C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\express@4.17.3\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\express@4.17.3\node_modules\express\lib\router\index.js:323:13)
+    at C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\express@4.17.3\node_modules\express\lib\router\index.js:284:7
+[2022-04-27T20:27:02+08:00] ReferenceError: user is not defined
+    at C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\server.js:33:22
+    at Layer.handle [as handle_request] (C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\express@4.17.3\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\express@4.17.3\node_modules\express\lib\router\index.js:323:13)
+    at C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\express@4.17.3\node_modules\express\lib\router\index.js:284:7
+    at Function.process_params (C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\express@4.17.3\node_modules\express\lib\router\index.js:341:12)
+    at next (C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\express@4.17.3\node_modules\express\lib\router\index.js:275:10)
+    at C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\server.js:29:3
+    at Layer.handle [as handle_request] (C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\express@4.17.3\node_modules\express\lib\router\layer.js:95:5)
+    at trim_prefix (C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\express@4.17.3\node_modules\express\lib\router\index.js:323:13)
+    at C:\Users\BeenYan\Desktop\javascriptSideProject\the-curse-of-the-lost-kingdom\backend\node_modules\.pnpm\express@4.17.3\node_modules\express\lib\router\index.js:284:7

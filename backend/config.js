@@ -19,16 +19,18 @@ const config = {
     secret: 'passwordhashdontlookit',
     resave: false,
     saveUninitialized: true,
+    unset: 'destroy',
     cookie: {
-      secure: true,
       maxAge: 24 * 60 * 60 * 1000, // 1 day
-      sameSite: 'strict',
+      httpOnly: true,
+      sameSite: 'none',
     },
     store: sessionStore,
   }),
   corsOptions: cors({
+    credentials: true,
     origin: function (origin, callback) {
-      if ('https://pandayoooo.github.io' === origin) {
+      if ('https://36.232.49.211:440' === origin) {
         return callback(null, true);
       }
       const time = moment().format('YYYY-MM-DD HH:mm:ss');
