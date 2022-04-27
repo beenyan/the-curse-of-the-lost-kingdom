@@ -19,7 +19,7 @@ class Treasure {
   inserToDb() {
     // 將取的寶寶物嘉進資料入
   }
-  getHandler(res) {
+  getHandler(team_id, req, res) {
     // 得到此寶物Handler
 
     // 檢查是否依賴寶物有取得

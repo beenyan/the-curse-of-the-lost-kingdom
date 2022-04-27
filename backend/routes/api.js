@@ -114,7 +114,7 @@ router.post('/backpack', async (req, res) => {
 
   const treasure = treasureList[code];
   // 新增寶物
-  treasure.getHandler(id);
+  treasure.getHandler(id, req, res);
 });
 
 router.all('*', (req, res) => {
