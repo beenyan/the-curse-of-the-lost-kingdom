@@ -1,7 +1,6 @@
 const express = require('express');
 const path = require('path');
 const { dirname } = require('path');
-const moment = require('moment');
 const treasureList = require(path.join(__dirname, '../assets/treasure'));
 const db = require(path.join(dirname(require.main.filename), 'connect'));
 
@@ -24,7 +23,7 @@ const isLogin = (req) => {
 };
 
 /**
- * 登入
+ * @description 登入
  */
 router.post('/login', (req, res) => {
   const { id } = req.body;
@@ -44,7 +43,7 @@ router.post('/login', (req, res) => {
 });
 
 /**
- * 檢查是否登入
+ * @description 檢查是否登入
  */
 router.all('*', (req, res, next) => {
   if (!isLogin(req)) return res.status(401).json({ msg: "You didn't log in." });
@@ -52,7 +51,7 @@ router.all('*', (req, res, next) => {
 });
 
 /**
- * 取得隊伍狀況
+ * @description 取得隊伍狀況
  */
 router.get('/team', (req, res) => {
   const { id } = req.session.team;
@@ -66,7 +65,7 @@ router.get('/team', (req, res) => {
 });
 
 /**
- * 輸入隊伍暱稱
+ * @description 輸入隊伍暱稱
  */
 router.post('/team_name', (req, res) => {
   const { name } = req.body;
@@ -87,11 +86,11 @@ router.post('/team_name', (req, res) => {
 });
 
 /**
- * 取得背包擁有的寶物
+ * @description 取得背包擁有的寶物
  */
 router.get('/backpack', (req, res) => {
   const { id } = req.session.team;
-  db.query('SELECT * FROM backpack WHERE team_id = ?', [id])
+  db.query('SELECT * FROM backpack WHERE team_id = ? AND is_used = 0', [id])
     .then(([backpack]) => {
       return res.status(200).json(backpack);
     })
@@ -101,20 +100,47 @@ router.get('/backpack', (req, res) => {
 });
 
 /**
- * 背包新增寶物
+ * @description 背包新增寶物
  */
 router.post('/backpack', async (req, res) => {
   const { code } = req.body;
   const { id } = req.session.team;
 
-  // 寶物碼錯誤
   if (!Object.prototype.hasOwnProperty.call(treasureList, code)) {
-    return res.status(403).json({ msg: 'fail' });
+    // 寶物碼錯誤
+    return res.status(403).json({ msg: 'Treasure Code not found.' });
   }
 
-  const treasure = treasureList[code];
   // 新增寶物
-  treasure.getHandler(id, req, res);
+  const treasure = treasureList[code];
+  const result = await treasure.getHandler(id);
+  if (!result.status) {
+    return res.status(403).json({ msg: result.msg });
+  }
+
+  res.json({ msg: result.msg });
+});
+
+/**
+ * @description 使用背包的物品
+ */
+router.post('/backpack/use', async (req, res) => {
+  const { code } = req.body;
+  const { id } = req.session.team;
+
+  if (!Object.prototype.hasOwnProperty.call(treasureList, code)) {
+    // 寶物碼錯誤
+    return res.status(403).json({ msg: 'Treasure Code not found.' });
+  }
+
+  // 新增寶物
+  const treasure = treasureList[code];
+  const result = await treasure.useHandler(id);
+  if (!result.status) {
+    return res.status(403).json({ msg: result.msg });
+  }
+
+  res.json({ msg: result.msg });
 });
 
 router.all('*', (req, res) => {
