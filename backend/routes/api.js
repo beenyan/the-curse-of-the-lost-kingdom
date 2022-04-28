@@ -47,7 +47,7 @@ router.post('/login', (req, res) => {
  * 檢查是否登入
  */
 router.all('*', (req, res, next) => {
-  if (!isLogin(req)) return res.status(401).json({ msg: "You don't login" });
+  if (!isLogin(req)) return res.status(401).json({ msg: "You didn't log in." });
   next();
 });
 
