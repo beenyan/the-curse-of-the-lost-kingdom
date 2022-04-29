@@ -13,12 +13,12 @@ const port = process.env.PORT || 443;
 
 const manageRouter = require('./routes/manage');
 const apiRouter = require('./routes/api');
-
 app.use(helmet());
 app.use(config.session);
-app.use('/api/', config.corsOptions);
+// app.use('/api/', config.corsOptions);
 app.use(compression()); // 壓縮所有 routor
 app.use('/', express.static('dist/'));
+app.use('/user', express.static('user/'));
 app.use(express.urlencoded({ extended: true }));
 app.use(config.morgan);
 app.use(express.json());
