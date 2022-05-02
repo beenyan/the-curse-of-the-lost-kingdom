@@ -9,7 +9,7 @@ const back = (msg = '', status = false) => {
 
 const lightUp = (team_id) => {
   return new Promise((resolve, reject) => {
-    db.query('UPDATE team SET horus += 1 WHERE team_id = ?', [team_id]).then(() => {
+    db.query('UPDATE team SET horus += 20 WHERE team_id = ?', [team_id]).then(() => {
       resolve(back('success', true));
     });
   });
@@ -34,7 +34,7 @@ let useHandlerMap = {
     return await lightUp(team_id);
   },
   async kwnatl45678(team_id) {
-    return '使用後荷魯斯之眼 點亮1/5';
+    return await lightUp(team_id);
   },
   CobraVenom() {
     return back('success', true);

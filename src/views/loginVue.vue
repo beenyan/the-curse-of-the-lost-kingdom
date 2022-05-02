@@ -40,7 +40,7 @@ const loginHandler = () => {
     return;
   }
   proxy.$axios
-    .post('/manageapi/login', { account: account.value })
+    .post('/login', { account: account.value })
     .then((response) => {
       const { data } = response;
       const { msg } = data;
