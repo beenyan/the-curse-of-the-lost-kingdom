@@ -9,6 +9,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 const app = createApp(App);
 Axios.defaults.timeout = 3 * 1000; // Max wait 3 secs
+Axios.defaults.baseURL = '/manageapi';
 app.config.globalProperties.$axios = Axios;
 
 library.add(fas);

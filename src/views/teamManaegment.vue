@@ -17,7 +17,6 @@
                     <select class="form-select border-0" v-model="select">
                       <option value="name">名稱</option>
                       <option value="kind">善值</option>
-                      <option value="money">金幣</option>
                     </select>
                   </th>
                 </tr>
@@ -63,7 +62,6 @@
       <ul>
         <li>名稱：{{ selectTeam.name }}</li>
         <li>善值：{{ selectTeam.kind }}</li>
-        <li>金錢：{{ selectTeam.money }}$</li>
       </ul>
     </template>
   </DialogVue>
@@ -95,7 +93,7 @@ const toolList = [
 const teamList = ref([]);
 onMounted(() => {
   proxy.$axios
-    .get('/manageapi/team_list')
+    .get('/team_list')
     .then((response) => {
       const { data } = response;
       teamList.value = data;
@@ -137,7 +135,7 @@ const insertHandler = () => {
     }
   }
   proxy.$axios
-    .post('/manageapi/team', team.value)
+    .post('/team', team.value)
     .then(() => {
       teamList.value.push(JSON.parse(JSON.stringify(team.value)));
       team.value.id = '';

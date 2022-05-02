@@ -54,9 +54,9 @@ const linkBoxList = ref([
     name: '隊伍管理',
   },
   {
-    href: '',
-    icon: 'gem',
-    name: '寶物',
+    href: '/manage/progress',
+    icon: 'chart-simple',
+    name: '進度',
   },
   {
     href: '',
@@ -70,8 +70,8 @@ const linkBoxList = ref([
   },
   {
     href: '',
-    icon: 'comment-dots',
-    name: '劇情',
+    icon: '',
+    name: '',
   },
 ]);
 </script>

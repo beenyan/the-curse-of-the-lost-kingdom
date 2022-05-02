@@ -143,40 +143,13 @@ router.post('/team', (req, res) => {
     });
 });
 
-/**
- * 所有寶物
- */
-router.get('/treasure_list', (req, res) => {
-  db.query('SELECT * FROM `treasure` LIMIT 100')
-    .then(([treasures]) => {
-      res.status(200).json(treasures);
-    })
-    .catch(() => {
-      return res.status(500).json({ msg: 'fail' });
-    });
+router.get('/team_progress', async (req, res) => {
+  const [teamList] = await db.query('SELECT * FROM team');
+  return res.json(teamList);
 });
 
-/**
- * 新增寶物
- */
-router.post('/treasure', (req, res) => {
-  const { name, code, content, type, expendables, qrcode, depend } = req.body;
-  const upload_date = moment().format('YYYY-MM-DD HH:mm:ss');
-  const need = JSON.stringify(req.body.need);
-  db.query(
-    'INSERT INTO treasure (code, name, content, type, expendables, qrcode, depend, need, upload_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-    [code, name, content, type, expendables, qrcode, depend, need, upload_date]
-  )
-    .then(([ResultSetHeader]) => {
-      if (ResultSetHeader.affectedRows === 0) {
-        return res.status(401).json({ msg: 'fail' });
-      }
-      return res.status(200).json({ msg: 'success' });
-    })
-    .catch((err) => {
-      console.log(err);
-      return res.status(500).json({ msg: 'fail' });
-    });
+router.all('*', (req, res) => {
+  res.status(404).json({ msg: '404 Not Found' });
 });
 
 module.exports = router;

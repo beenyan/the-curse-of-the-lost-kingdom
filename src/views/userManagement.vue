@@ -63,7 +63,7 @@ const alert = ref(null);
 const userList = ref([]);
 onMounted(() => {
   proxy.$axios
-    .get('/manageapi/user_list')
+    .get('/user_list')
     .then((response) => {
       const { data } = response;
       userList.value = data;
@@ -110,7 +110,7 @@ const insertHandler = () => {
     }
   }
   proxy.$axios
-    .post('/manageapi/user', user.value)
+    .post('/user', user.value)
     .then(() => {
       userList.value.push(JSON.parse(JSON.stringify(user.value)));
       user.value.id = '';
@@ -131,7 +131,7 @@ const insertHandler = () => {
 const deleteHandler = (id) => {
   if (!confirm('確認刪除，刪除後無法復原。')) return;
   proxy.$axios
-    .delete(`/manageapi/user/${id}`)
+    .delete(`/user/${id}`)
     .then((response) => {
       const { msg } = response.data;
       if (msg === 'success') {

@@ -24,9 +24,9 @@ const routes = [
     meta: { title: '隊伍管理' },
   },
   {
-    path: '/manage/treasure',
-    component: () => import('../views/treasureManaegment.vue'),
-    meta: { title: '寶物管理' },
+    path: '/manage/progress',
+    component: () => import('../views/progressManaegment.vue'),
+    meta: { title: '進度統整' },
   },
 ];
 
@@ -37,7 +37,7 @@ const router = createRouter({
 
 router.beforeEach(async (to) => {
   let isAuth = null;
-  await axios('/manageapi/login', { timeout: 300 })
+  await axios('/login', { timeout: 300 })
     .then((res) => {
       isAuth = res.data;
     })

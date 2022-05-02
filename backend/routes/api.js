@@ -55,7 +55,7 @@ router.all('*', (req, res, next) => {
  */
 router.get('/team', (req, res) => {
   const { id } = req.session.team;
-  db.query('SELECT `id`, `name`, `money`, `kind`, `horus` FROM team WHERE id = ?', [id])
+  db.query('SELECT `id`, `name`, `kind`, `horus` FROM team WHERE id = ?', [id])
     .then(([team]) => {
       return res.status(200).json(team[0]);
     })
