@@ -140,11 +140,15 @@ router.post('/backpack/use', async (req, res) => {
     return res.status(403).json({ msg: result.msg });
   }
 
-  res.json({ msg: result.msg });
+  const ret = { msg: result.msg };
+  if (result.data) {
+    ret.data = result.data;
+  }
+  res.json(ret);
 });
 
 router.all('*', (req, res) => {
-  res.status(404).json({ msg: 'Not Found' });
+  res.status(404).json({ msg: '404 Not Found' });
 });
 
 module.exports = router;

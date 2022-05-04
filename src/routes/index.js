@@ -24,9 +24,19 @@ const routes = [
     meta: { title: '隊伍管理' },
   },
   {
-    path: '/manage/progress',
-    component: () => import('../views/progressManaegment.vue'),
-    meta: { title: '進度統整' },
+    path: '/iframe/',
+    component: () => import('../views/UserView.vue'),
+    meta: { title: 'qrcode' },
+    children: [
+      {
+        path: '',
+        component: () => import('../components/UserQrcode.vue'),
+      },
+      {
+        path: 'input',
+        component: () => import('../components/InputTreasureCode.vue'),
+      },
+    ],
   },
 ];
 
@@ -35,7 +45,12 @@ const router = createRouter({
   routes,
 });
 
+const whiteList = ['/iframe', '/iframe/', '/iframe/input'];
+
 router.beforeEach(async (to) => {
+  if (whiteList.includes(to.fullPath)) {
+    return true;
+  }
   let isAuth = null;
   await axios('/login', { timeout: 300 })
     .then((res) => {

@@ -26,6 +26,11 @@ export default defineConfig({
         changeOrigin: false,
         secure: false,
       },
+      '/api': {
+        target: 'https://localhost',
+        changeOrigin: false,
+        secure: false,
+      },
     },
   },
   css: { preprocessorOptions: { scss: { charset: false } } },

@@ -37,10 +37,14 @@ let useHandlerMap = {
     return await lightUp(team_id);
   },
   CobraVenom() {
-    return back('success', true);
+    const ret = back('success', true);
+    ret.data = { msg: '遭受信徒背叛，飲下了毒藥，靈魂將引導至金資塔(已通關結局1，請回到工程五館EB203)' };
+    return ret;
   },
   SourceOfHorus() {
-    return back('success', true);
+    const ret = back('success', true);
+    ret.data = { msg: '顯示:恭喜通關，現在將引導您至現實(已通關結局2，請回到工程五館EB203)' };
+    return ret;
   },
 };
 
@@ -114,11 +118,30 @@ class Treasure {
     // 使用此寶物
     const result = await useHandlerMap[this.name](team_id);
     if (!result.status) return result;
-    this.removeHandler();
+    this.removeHandler(team_id);
     return result;
   }
   removeHandler(team_id) {
     db.query('UPDATE backpack SET is_used = 1 WHERE team_id = ? AND treasure_code = ?', [team_id, this.name]);
+  }
+}
+
+class KindTreasure extends Treasure {
+  constructor(_name, _dependList = [], _val) {
+    super(_name, _dependList, true);
+    this.val = _val;
+  }
+  async useHandler(team_id) {
+    if (!this.consumables) {
+      return back('This treasure cannot be used.');
+    } else if (await this.isUsed(team_id)) {
+      return back('This treasure already be used.');
+    }
+
+    // 使用此寶物
+    await db.query('UPDATE team SET kind = kind + ? WHERE id = ?', [this.val, team_id]);
+    this.removeHandler(team_id);
+    return back('success', true);
   }
 }
 
@@ -177,12 +200,23 @@ const treasureList = {
   CobraVenom: new Treasure('CobraVenom', ['GodKnows', 'ChefKnows', 'DoctorKnows'], true),
   SourceOfHorus: new Treasure('SourceOfHorus', [], true),
 
-  //支線
+  // 支線
   iToldYouDo: new Treasure('iToldYouDo'),
   iron123: new Treasure('iron123'),
   letter456: new Treasure('letter456'),
   lunardiamond: new Treasure('lunardiamond'),
   Afterglow: new Treasure('Afterglow'),
+
+  // 善值卡
+  kindA10: new KindTreasure('kindA10', [], 10),
+  kindA201: new KindTreasure('kindA201', [], 20),
+  kindA220: new KindTreasure('kindA220', ['iToldYouDo'], 20),
+  kindA320: new KindTreasure('kindA320', ['iron123'], 20),
+  kindA301: new KindTreasure('kindA301', ['letter456'], 30),
+  kindA230: new KindTreasure('kindA230', ['lunardiamond'], 30),
+  kindS201: new KindTreasure('kindS201', [], -20),
+  kindS220: new KindTreasure('kindS220', ['Afterglow'], -20),
+  kindS5: new KindTreasure('kindS5', [], -5),
 };
 
 module.exports = treasureList;
