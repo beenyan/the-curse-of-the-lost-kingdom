@@ -13,7 +13,11 @@ const port = process.env.PORT || 443;
 
 const manageRouter = require('./routes/manage');
 const apiRouter = require('./routes/api');
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
 app.use(config.session);
 // app.use('/api/', config.corsOptions);
 app.use(compression()); // 壓縮所有 routor

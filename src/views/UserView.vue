@@ -7,7 +7,6 @@
       <div class="router-text">{{ router.name }}</div>
     </router-link>
   </div>
-  <vue-basic-alert :close-in="3000" :duration="300" ref="alert" />
 </template>
 
 <script setup>

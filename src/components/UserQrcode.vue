@@ -5,36 +5,41 @@
   <vue-basic-alert :close-in="3000" :duration="300" ref="alert" />
 </template>
 
-<script>
-import { QrcodeStream } from 'vue3-qrcode-reader';
-export default {
-  components: { QrcodeStream },
-  methods: {
-    onDecode(decodedString) {
-      const code = decodedString.trim();
-      const axios = this.$axios;
-      axios.defaults.baseURL = '/api';
-      axios
-        .post('/backpack', { code })
-        .then((response) => {
-          this.$refs.alert.showAlert('error', '', '寶物成功取得');
-        })
-        .catch((error) => {
-          const { data } = error.response;
-          if (data.hasOwnProperty('msg')) {
-            this.$refs.alert.showAlert('error', '', data.msg);
-            return;
-          }
-          this.$refs.alert.showAlert('error', '', '未知錯誤');
-        });
-    },
-    logErrors(promise) {
-      promise.catch((e) => {
-        this.$refs.alert.showAlert('error', '', '無法開啟相機');
-      });
-    },
-  },
-};
+<script setup>
+import { ref, getCurrentInstance } from 'vue';
+const { proxy } = getCurrentInstance();
+const axios = proxy.$axios;
+const hint = ref('');
+const alert = ref();
+
+axios.defaults.baseURL = '/api';
+
+function logErrors(promise) {
+  promise.catch((error) => {
+    alert.value.showAlert('error', error.message, '無法開啟相機');
+  });
+}
+
+function onDecode(decodedString) {
+  const code = decodedString.trim();
+  axios
+    .post('/backpack', { code })
+    .then((response) => {
+      const { data } = response;
+      if (data.hasOwnProperty('data')) {
+        hint.value = data.msg;
+      }
+      alert.value.showAlert('success', '', '寶物取得成功');
+    })
+    .catch((error) => {
+      const { data } = error.response;
+      if (data.hasOwnProperty('msg')) {
+        alert.value.showAlert('error', '', data.msg);
+        return;
+      }
+      alert.value.showAlert('error', '', '未知錯誤');
+    });
+}
 </script>
 <style scoped lang="scss">
 #QRCODE {

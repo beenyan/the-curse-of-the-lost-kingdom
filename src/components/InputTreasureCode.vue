@@ -31,7 +31,7 @@ const sendPost = () => {
     return;
   }
   axios
-    .post('/backpack', { code })
+    .post('/backpack', { code: code.value })
     .then((response) => {
       const { data } = response;
       if (data.hasOwnProperty('data')) {
@@ -64,6 +64,7 @@ const sendPost = () => {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  box-shadow: 1px 1px 2px #00000030;
   .input-box {
     position: relative;
     display: flex;
