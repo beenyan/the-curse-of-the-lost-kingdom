@@ -163,12 +163,12 @@ router.post('/game-end', async (req, res) => {
     return res.status(403).json({ msg: 'Choose error.' });
   }
 
-  const [team] = await db.query('SELECT horus, choose FROM team WHERE team = ?', [id]);
+  const [team] = await db.query('SELECT horus, choose FROM team WHERE id = ?', [id]);
   if (team.horus !== 5 || team.choose !== 0) {
     return res.status(403).json({ msg: '條件未達成' });
   }
 
-  await db.query('UPDATE team SET choose = ? WHERE team = ?', [pathMap[choose], id]);
+  await db.query('UPDATE team SET choose = ? WHERE id = ?', [pathMap[choose], id]);
   return res.status(200).json({ msg: 'success' });
 });
 
