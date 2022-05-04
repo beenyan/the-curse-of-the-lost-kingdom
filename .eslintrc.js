@@ -11,5 +11,6 @@ module.exports = {
     'no-unused-vars': 'off',
     'no-shadow': 'off',
     'vue/no-template-shadow': 'off',
+    'no-prototype-builtins': 'off',
   },
 };

@@ -147,6 +147,31 @@ router.post('/backpack/use', async (req, res) => {
   res.json(ret);
 });
 
+/**
+ * @description 遊戲結束
+ */
+router.post('/game-end', async (req, res) => {
+  const { choose } = req.body;
+  const { id } = req.session.team;
+
+  const pathMap = {
+    path1: 1, // 法老
+    path2: 2, // 現實
+  };
+
+  if (!pathMap.hasOwnProperty(choose)) {
+    return res.status(403).json({ msg: 'Choose error.' });
+  }
+
+  const [team] = await db.query('SELECT horus, choose FROM team WHERE team = ?', [id]);
+  if (team.horus !== 5 || team.choose !== 0) {
+    return res.status(403).json({ msg: '條件未達成' });
+  }
+
+  await db.query('UPDATE team SET choose = ? WHERE team = ?', [pathMap[choose], id]);
+  return res.status(200).json({ msg: 'success' });
+});
+
 router.all('*', (req, res) => {
   res.status(404).json({ msg: '404 Not Found' });
 });
