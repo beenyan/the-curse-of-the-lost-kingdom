@@ -163,8 +163,8 @@ router.post('/game-end', async (req, res) => {
     return res.status(403).json({ msg: 'Choose error.' });
   }
 
-  const [team] = await db.query('SELECT horus, choose FROM team WHERE id = ?', [id]);
-  if (team.horus !== 5 || team.choose !== 0) {
+  const [team] = await db.query('SELECT horus, choose, kind FROM team WHERE id = ?', [id]);
+  if (team.horus !== 5 || team.choose !== 0 || (choose === 'path2' && team.kind < 60)) {
     return res.status(403).json({ msg: '條件未達成' });
   }
 
