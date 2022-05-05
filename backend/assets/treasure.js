@@ -180,7 +180,7 @@ const treasureList = {
   BoneBoneBone: new Treasure('BoneBoneBone', ['NORTHWATER']),
   '0x480x650x78': new Treasure('0x480x650x78'),
   FreshPootau: new Treasure('FreshPootau'),
-  YouCantDrive: new Treasure('YouCantDrive'['FreshPootau']),
+  YouCantDrive: new Treasure('YouCantDrive', ['FreshPootau']),
   Max6a6y: new Treasure('Max6a6y', ['6ad6a6y', '0x480x650x78', 'YouCantDrive']),
   Ramses6a6y: new Treasure('Ramses6a6y', ['Max6a6y', 'BoneBoneBone'], true),
   Illusions: new Treasure('Illusions'),
