@@ -72,7 +72,7 @@ const chooseObj = {
 function preprocessing(teams) {
   for (const team of teams) {
     team.data = {};
-    team.data.horus = Math.floor(team.horus / 20);
+    team.data.horus = team.horus;
     team.data.choose = chooseObj[team.choose];
     team.data.kind = team.kind;
     team.data.used = (team.treasureList.filter((treasure) => treasure.is_used === 1).length / totalTreasureCount) * 100;
