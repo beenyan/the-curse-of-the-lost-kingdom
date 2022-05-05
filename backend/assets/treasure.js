@@ -216,7 +216,7 @@ const treasureList = {
   kaichishco56: new Treasure('kaichishco56'),
   samyanshi29: new Treasure('samyanshi29', ['kaichishco56']),
   shiya5ucha1: new Treasure('shiya5ucha1', ['samyanshi29']),
-  chz0innochi: new Treasure('chz0innochi', ['shiya5ucha1', 'shoutomiti69']),
+  chz0innochi: new Treasure('chz0innochi', ['shiya5ucha1', 'leader']),
   kwnatl45678: new Treasure('kwnatl45678', ['chz0innochi'], true),
   TheSixth: new Treasure('TheSixth'),
   GodKnows: new Treasure('GodKnows'),
