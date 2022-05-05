@@ -152,7 +152,7 @@ class KindTreasure extends Treasure {
     }
 
     if (await this.inserToDb(team_id)) {
-      return await this.useHandler();
+      return await this.useHandler(team_id);
     }
   }
   async useHandler(team_id) {
