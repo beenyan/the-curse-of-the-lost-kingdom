@@ -9,7 +9,7 @@ const back = (msg = '', status = false) => {
 
 const lightUp = (team_id) => {
   return new Promise((resolve, reject) => {
-    db.query('UPDATE team SET horus = horus + 20 WHERE team_id = ?', [team_id]).then(() => {
+    db.query('UPDATE team SET horus = horus + 20 WHERE id = ?', [team_id]).then(() => {
       resolve(back('success', true));
     });
   });
