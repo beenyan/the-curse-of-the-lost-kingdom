@@ -9,7 +9,6 @@
 import { ref, getCurrentInstance } from 'vue';
 const { proxy } = getCurrentInstance();
 const axios = proxy.$axios;
-const hint = ref('');
 const alert = ref();
 
 axios.defaults.baseURL = '/api';
@@ -26,9 +25,6 @@ function onDecode(decodedString) {
     .post('/backpack', { code })
     .then((response) => {
       const { data } = response;
-      if (data.hasOwnProperty('data')) {
-        hint.value = data.msg;
-      }
       alert.value.showAlert('success', '', '寶物取得成功');
     })
     .catch((error) => {

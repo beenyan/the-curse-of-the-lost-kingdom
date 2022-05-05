@@ -24,6 +24,11 @@ const routes = [
     meta: { title: '隊伍管理' },
   },
   {
+    path: '/manage/progress',
+    component: () => import('../views/progressManaegment.vue'),
+    meta: { title: '進度' },
+  },
+  {
     path: '/iframe/',
     component: () => import('../views/UserView.vue'),
     meta: { title: 'qrcode' },

@@ -5,8 +5,6 @@
       <input type="text" class="input-body" v-model="code" />
     </div>
 
-    <div id="hint">{{ hint }}</div>
-
     <div class="btn-box">
       <button class="btn-body" @click="sendPost()">Get</button>
     </div>
@@ -19,7 +17,6 @@ import { ref, getCurrentInstance } from 'vue';
 const { proxy } = getCurrentInstance();
 const axios = proxy.$axios;
 const code = ref('');
-const hint = ref('');
 const alert = ref();
 
 axios.defaults.baseURL = '/api';
@@ -34,9 +31,6 @@ const sendPost = () => {
     .post('/backpack', { code: code.value })
     .then((response) => {
       const { data } = response;
-      if (data.hasOwnProperty('data')) {
-        hint.value = data.msg;
-      }
       alert.value.showAlert('success', '', '寶物取得成功');
     })
     .catch((error) => {
