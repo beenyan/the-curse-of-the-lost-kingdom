@@ -163,13 +163,10 @@ router.post('/game-end', async (req, res) => {
     return res.status(403).json({ msg: 'Choose error.' });
   }
 
-  const [team] = await db.query('SELECT horus, choose, kind FROM team WHERE id = ?', [id]);
-  if (team.horus < 5) {
-    return res.status(403).json({ msg: '缺乏關鍵道具' });
-  } else if (team.choose !== 0) {
-    return res.status(403).json({ msg: '會觸發到這個錯誤你也是很皮' });
-  } else if (choose === 'path2' && team.kind < 60) {
-    return res.status(403).json({ msg: '缺乏關鍵訊息' });
+  const [teamList] = await db.query('SELECT horus, choose, kind FROM team WHERE id = ?', [id]);
+  const team = teamList[0];
+  if (team.horus < 5 || team.choose !== 0 || (choose === 'path2' && team.kind < 60)) {
+    return res.status(403).json({ msg: '條件未達成' });
   }
 
   await db.query('UPDATE team SET choose = ? WHERE id = ?', [pathMap[choose], id]);
