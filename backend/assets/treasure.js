@@ -131,6 +131,30 @@ class KindTreasure extends Treasure {
     super(_name, _dependList, true);
     this.val = _val;
   }
+  async getHandler(team_id) {
+    // 檢查寶物是否已經取得
+    if (await this.isInBackpack(team_id)) {
+      return back('Already has it.');
+    }
+
+    // 檢查是否已取得依賴的寶物
+    for (const treasureCode of this.dependList) {
+      const treasure = treasureList[treasureCode];
+      if (await treasure.isUsed(team_id)) {
+        return back("Didn't has depend treasure.");
+      }
+    }
+
+    // 刪除依賴寶物
+    for (const treasureCode of this.dependList) {
+      const treasure = treasureList[treasureCode];
+      treasure.removeHandler(team_id);
+    }
+
+    if (await this.inserToDb(team_id)) {
+      return await this.useHandler();
+    }
+  }
   async useHandler(team_id) {
     if (!this.consumables) {
       return back('This treasure cannot be used.');
@@ -217,7 +241,18 @@ const treasureList = {
   kindA230: new KindTreasure('kindA230', ['lunardiamond'], 30),
   kindS201: new KindTreasure('kindS201', [], -20),
   kindS220: new KindTreasure('kindS220', ['Afterglow'], -20),
-  kindS5: new KindTreasure('kindS5', [], -5),
+  kindA420: new KindTreasure('kindA420', ['Afterglow'], 20),
+  kindS50: new KindTreasure('kindS50', ['Afterglow'], -5),
+  kindS51: new KindTreasure('kindS51', ['Afterglow'], -5),
+  kindS52: new KindTreasure('kindS52', ['Afterglow'], -5),
+  kindS53: new KindTreasure('kindS53', ['Afterglow'], -5),
+  kindS54: new KindTreasure('kindS54', ['Afterglow'], -5),
+  kindS55: new KindTreasure('kindS55', ['Afterglow'], -5),
+  kindS56: new KindTreasure('kindS56', ['Afterglow'], -5),
+  kindS57: new KindTreasure('kindS57', ['Afterglow'], -5),
+  kindS58: new KindTreasure('kindS58', ['Afterglow'], -5),
+  kindS59: new KindTreasure('kindS59', ['Afterglow'], -5),
+  kindS60: new KindTreasure('kindS60', ['Afterglow'], -5),
 };
 
 module.exports = treasureList;
