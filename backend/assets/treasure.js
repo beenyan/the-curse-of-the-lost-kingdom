@@ -194,7 +194,7 @@ const treasureList = {
   HundredShenwood: new Treasure('HundredShenwood'),
   OldGodWood: new Treasure('OldGodWood', ['HundredShenwood']),
   Questionnaire: new Treasure('Questionnaire', ['LionMao', 'MaskPeitai', 'OldGodWood']),
-  C37: new Treasure('C37'),
+  C37: new Treasure('C37', ['Questionnaire']),
   GoldSilverMoney: new Treasure('GoldSilverMoney'),
   UglyFlower: new Treasure('UglyFlower'),
   GodTear: new Treasure('GodTear', ['C37', 'GoldSilverMoney', 'UglyFlower'], true),
@@ -219,10 +219,11 @@ const treasureList = {
   chz0innochi: new Treasure('chz0innochi', ['shiya5ucha1', 'leader']),
   kwnatl45678: new Treasure('kwnatl45678', ['chz0innochi'], true),
   TheSixth: new Treasure('TheSixth'),
-  GodKnows: new Treasure('GodKnows'),
+  GodKnows: new Treasure('GodKnows', ['TheSixth']),
   ChefKnows: new Treasure('ChefKnows'),
   DoctorKnows: new Treasure('DoctorKnows'),
-  CobraVenom: new Treasure('CobraVenom', ['GodKnows', 'ChefKnows', 'DoctorKnows'], true),
+  AllKnows: new Treasure('AllKnows'),
+  CobraVenom: new Treasure('CobraVenom', ['AllKnows', 'GodKnows', 'ChefKnows', 'DoctorKnows'], true),
   SourceOfHorus: new Treasure('SourceOfHorus', [], true),
 
   // 支線
