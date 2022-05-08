@@ -56,7 +56,8 @@
 </template>
 
 <script setup>
-import { ref, onMounted, beforeDestroy, getCurrentInstance } from 'vue';
+import { ref, onMounted, watch, getCurrentInstance } from 'vue';
+import { useRoute } from 'vue-router';
 import NavbarVue from '../components/navbarVue.vue';
 const { proxy } = getCurrentInstance();
 const alert = ref(null);
@@ -81,7 +82,7 @@ function preprocessing(teams) {
   }
   teamList.value = teams;
 }
-
+const route = useRoute();
 function init() {
   proxy.$axios
     .get('/team_progress')
@@ -105,8 +106,8 @@ onMounted(() => {
   interval = setInterval(init, refreshTime);
 });
 
-beforeDestroy(() => {
-  clearInterval(interval);
+watch(route.path, async (oldPath, newPath) => {
+  console.log(oldPath, newPath);
 });
 </script>
 
