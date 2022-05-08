@@ -59,6 +59,8 @@ class Treasure {
      * @return {boolean} ture: already be used this treasure.
      */
     const backpack = await this.isInBackpack(team_id);
+    console.log(backpack);
+    return backpack;
     return backpack.isUsed;
   }
   isInBackpack(team_id) {
