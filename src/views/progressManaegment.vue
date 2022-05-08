@@ -81,7 +81,7 @@ function preprocessing(teams) {
   teamList.value = teams;
 }
 
-(function init() {
+function init() {
   proxy.$axios
     .get('/team_progress')
     .then((response) => {
@@ -96,9 +96,11 @@ function preprocessing(teams) {
         return;
       }
       alert.value.showAlert('error', '', '未知錯誤');
-    })
-    .then(() => setTimeout(init, refreshTime));
-})();
+    });
+}
+
+init();
+setInterval(init, refreshTime);
 </script>
 
 <style scoped lang="scss">
