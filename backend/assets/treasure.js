@@ -119,9 +119,10 @@ class Treasure {
       return back('This treasure already be used.');
     }
 
+    console.log(await this.isUsed(team_id));
+
     // 使用此寶物
     const result = await useHandlerMap[this.name](team_id);
-    console.log(result);
     if (!result.status) return result;
     this.removeHandler(team_id);
     return result;
@@ -141,8 +142,6 @@ class KindTreasure extends Treasure {
     const backpack = await this.isInBackpack(team_id);
     if (backpack) {
       return back('Already has it.');
-    } else if (backpack.isUsed) {
-      return back('This treasure already be used.');
     }
 
     // 檢查是否已取得依賴的寶物
