@@ -56,7 +56,7 @@
 </template>
 
 <script setup>
-import { ref, getCurrentInstance } from 'vue';
+import { ref, onMounted, beforeDestroy, getCurrentInstance } from 'vue';
 import NavbarVue from '../components/navbarVue.vue';
 const { proxy } = getCurrentInstance();
 const alert = ref(null);
@@ -68,6 +68,7 @@ const chooseObj = {
   1: '法老線',
   2: '現實線',
 };
+let interval;
 
 function preprocessing(teams) {
   for (const team of teams) {
@@ -99,8 +100,14 @@ function init() {
     });
 }
 
-init();
-setInterval(init, refreshTime);
+onMounted(() => {
+  init();
+  interval = setInterval(init, refreshTime);
+});
+
+beforeDestroy(() => {
+  clearInterval(interval);
+});
 </script>
 
 <style scoped lang="scss">
