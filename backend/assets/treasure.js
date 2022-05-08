@@ -56,25 +56,25 @@ class Treasure {
   }
   async isUsed(team_id) {
     /**
-     * @return {boolean} ture: already used this treasure.
+     * @return {boolean} ture: already be used this treasure.
      */
-    return await this.isInBackpack(team_id, true);
+    const backpack = await this.isInBackpack(team_id);
+    return backpack.isUsed;
   }
-  isInBackpack(team_id, is_used) {
+  isInBackpack(team_id) {
     /**
-     * @return {boolean} ture: already has this treasure.
+     * @return {undefined | object} object:has treasure
      */
     return new Promise((resolve, reject) => {
-      const limit = is_used ? 'AND is_used = 1' : '';
-      const sql = `SELECT count(id) as count FROM backpack WHERE team_id = ? AND treasure_code = ? ${limit}`;
-      db.query(sql, [team_id, this.name]).then(([rows]) => {
-        resolve(rows[0].count);
+      const sql = `SELECT is_used as count FROM backpack WHERE team_id = ? AND treasure_code = ?`;
+      db.query(sql, [team_id, this.name]).then(([backpackList]) => {
+        resolve(backpackList[0]);
       });
     });
   }
   inserToDb(team_id) {
     /**
-     * @return {boolean} ture: Insert into mysql successed.
+     * @return {boolean} ture: already has this treasure.
      */
     return new Promise((resolve, reject) => {
       const upload_date = moment().format('YYYY-MM-DD HH:mm:ss');
@@ -86,15 +86,19 @@ class Treasure {
   }
   async getHandler(team_id) {
     // 檢查寶物是否已經取得
-    if (await this.isInBackpack(team_id)) {
+    const backpack = await this.isInBackpack(team_id);
+    if (backpack) {
       return back('Already has it.');
     }
 
     // 檢查是否已取得依賴的寶物
     for (const treasureCode of this.dependList) {
       const treasure = treasureList[treasureCode];
-      if (await treasure.isUsed(team_id)) {
+      const backpack = await treasure.isInBackpack(team_id);
+      if (!backpack) {
         return back("Didn't has depend treasure.");
+      } else if (backpack.isUsed) {
+        return back('The depend treasure already be used.');
       }
     }
 
@@ -133,15 +137,19 @@ class KindTreasure extends Treasure {
   }
   async getHandler(team_id) {
     // 檢查寶物是否已經取得
-    if (await this.isInBackpack(team_id)) {
+    const backpack = await this.isInBackpack(team_id);
+    if (backpack) {
       return back('Already has it.');
     }
 
     // 檢查是否已取得依賴的寶物
     for (const treasureCode of this.dependList) {
       const treasure = treasureList[treasureCode];
-      if (await treasure.isUsed(team_id)) {
+      const backpack = await treasure.isInBackpack(team_id);
+      if (!backpack) {
         return back("Didn't has depend treasure.");
+      } else if (backpack.isUsed) {
+        return back('The depend treasure already be used.');
       }
     }
 
@@ -189,8 +197,7 @@ const treasureList = {
   Shitbeetles: new Treasure('Shitbeetles', ['Illusions', 'Paraohmask', 'Overmydeadbody']),
   Finallyucango: new Treasure('Finallyucango', ['Shitbeetles'], true),
   LionMao: new Treasure('LionMao'),
-  Muddddd: new Treasure('Muddddd'),
-  MaskPeitai: new Treasure('MaskPeitai', ['Muddddd']),
+  MaskPeitai: new Treasure('MaskPeitai'),
   HundredShenwood: new Treasure('HundredShenwood'),
   OldGodWood: new Treasure('OldGodWood', ['HundredShenwood']),
   Questionnaire: new Treasure('Questionnaire', ['LionMao', 'MaskPeitai', 'OldGodWood']),
