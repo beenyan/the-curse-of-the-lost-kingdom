@@ -106,9 +106,12 @@ onMounted(() => {
   interval = setInterval(init, refreshTime);
 });
 
-watch(route.path, async (oldPath, newPath) => {
-  console.log(oldPath, newPath);
-});
+watch(
+  () => route.path,
+  () => {
+    console.debug(`MyCoolComponent - watch route.path changed to ${route.path}`);
+  }
+);
 </script>
 
 <style scoped lang="scss">
