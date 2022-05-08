@@ -22,10 +22,11 @@ function logErrors(promise) {
 function onDecode(decodedString) {
   const code = decodedString.trim();
   axios
-    .post('/backpack', { code })
+    .post('/backpack', { code: code.value })
     .then((response) => {
       const { data } = response;
-      alert.value.showAlert('success', '', '寶物取得成功');
+      code.value = '';
+      alert.value.showAlert('success', data.msg);
     })
     .catch((error) => {
       const { data } = error.response;

@@ -32,7 +32,7 @@ const sendPost = () => {
     .then((response) => {
       const { data } = response;
       code.value = '';
-      alert.value.showAlert('success', '', data.msg);
+      alert.value.showAlert('success', data.msg);
     })
     .catch((error) => {
       const { data } = error.response;

@@ -22,6 +22,7 @@ app.use(config.session);
 // app.use('/api/', config.corsOptions);
 app.use(compression()); // 壓縮所有 routor
 app.use('/', express.static('dist/'));
+app.use('/user/static', express.static('user/static/'));
 app.use('/user', express.static('user/'));
 app.use(express.urlencoded({ extended: true }));
 app.use(config.morgan);
