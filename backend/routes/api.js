@@ -118,7 +118,7 @@ router.post('/backpack', async (req, res) => {
     return res.status(403).json({ msg: result.msg });
   }
 
-  res.json({ msg: result.msg });
+  res.json(result);
 });
 
 /**

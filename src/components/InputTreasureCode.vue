@@ -24,7 +24,7 @@ axios.defaults.baseURL = '/api';
 const sendPost = () => {
   const val = code.value.trim();
   if (val === '') {
-    alert.value.showAlert('error', '', '寶誤代碼不能為空');
+    alert.value.showAlert('error', '', '寶物代碼不能為空');
     return;
   }
   axios
@@ -32,6 +32,7 @@ const sendPost = () => {
     .then((response) => {
       const { data } = response;
       alert.value.showAlert('success', '', '寶物取得成功');
+      console.log(data);
       code.value = '';
     })
     .catch((error) => {

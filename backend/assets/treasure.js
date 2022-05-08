@@ -173,7 +173,9 @@ class KindTreasure extends Treasure {
     // 使用此寶物
     await db.query('UPDATE team SET kind = kind + ? WHERE id = ?', [this.val, team_id]);
     this.removeHandler(team_id);
-    return back('success', true);
+    const ret = back('success', true);
+    ret.data = { msg: '似乎有東西發生了細微的變化。' };
+    return ret;
   }
 }
 
