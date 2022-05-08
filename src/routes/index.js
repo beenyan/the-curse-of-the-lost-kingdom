@@ -57,7 +57,7 @@ router.beforeEach(async (to) => {
     return true;
   }
   let isAuth = null;
-  await axios('/login', { timeout: 300 })
+  await axios('/login', { timeout: 30000 })
     .then((res) => {
       isAuth = res.data;
     })
