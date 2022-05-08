@@ -119,8 +119,6 @@ class Treasure {
       return back('This treasure already be used.');
     }
 
-    console.log(await this.isUsed(team_id));
-
     // 使用此寶物
     const result = await useHandlerMap[this.name](team_id);
     if (!result.status) return result;

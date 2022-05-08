@@ -147,7 +147,7 @@ router.post('/team', (req, res) => {
  * @deprecated 取的所有隊伍進度
  */
 router.get('/team_progress', async (req, res) => {
-  const [teamList] = await db.query('SELECT * FROM team');
+  const [teamList] = await db.query('SELECT * FROM team ORDER BY `choose` DESC, `horus` DESC, `kind` DESC');
   const [backpackList] = await db.query('SELECT * FROM backpack');
   for (const team of teamList) {
     team.treasureList = backpackList.filter((backpack) => backpack.team_id === team.id);
