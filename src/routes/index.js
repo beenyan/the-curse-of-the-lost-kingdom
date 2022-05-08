@@ -62,7 +62,6 @@ router.beforeEach(async (to) => {
       isAuth = res.data;
     })
     .catch((err) => {
-      console.log(err);
       alert('連線錯誤');
     });
   if (to.path === '/' && isAuth) {
