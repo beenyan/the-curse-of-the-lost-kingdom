@@ -59,8 +59,6 @@ class Treasure {
      * @return {boolean} ture: already be used this treasure.
      */
     const backpack = await this.isInBackpack(team_id);
-    console.log(backpack);
-    return backpack;
     return backpack.isUsed;
   }
   isInBackpack(team_id) {
@@ -68,7 +66,7 @@ class Treasure {
      * @return {undefined | object} object:has treasure
      */
     return new Promise((resolve, reject) => {
-      const sql = `SELECT is_used as count FROM backpack WHERE team_id = ? AND treasure_code = ?`;
+      const sql = `SELECT is_used FROM backpack WHERE team_id = ? AND treasure_code = ?`;
       db.query(sql, [team_id, this.name]).then(([backpackList]) => {
         resolve(backpackList[0]);
       });
