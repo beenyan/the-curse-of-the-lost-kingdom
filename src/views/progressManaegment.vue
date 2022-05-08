@@ -108,9 +108,7 @@ onMounted(() => {
 
 watch(
   () => route.path,
-  () => {
-    console.debug(`MyCoolComponent - watch route.path changed to ${route.path}`);
-  }
+  () => clearInterval(interval)
 );
 </script>
 
