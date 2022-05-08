@@ -141,6 +141,8 @@ class KindTreasure extends Treasure {
     const backpack = await this.isInBackpack(team_id);
     if (backpack) {
       return back('Already has it.');
+    } else if (backpack.isUsed) {
+      return back('This treasure already be used.');
     }
 
     // 檢查是否已取得依賴的寶物
