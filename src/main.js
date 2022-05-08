@@ -9,7 +9,7 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import VueQrcodeReader from 'vue3-qrcode-reader';
 const app = createApp(App);
-Axios.defaults.timeout = 3 * 1000; // Max wait 3 secs
+Axios.defaults.timeout = 30 * 1000; // Max wait 30 secs
 Axios.defaults.baseURL = '/manageapi';
 app.config.globalProperties.$axios = Axios;
 

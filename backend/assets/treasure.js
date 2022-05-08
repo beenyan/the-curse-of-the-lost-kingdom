@@ -121,6 +121,7 @@ class Treasure {
 
     // 使用此寶物
     const result = await useHandlerMap[this.name](team_id);
+    console.log(result);
     if (!result.status) return result;
     this.removeHandler(team_id);
     return result;
@@ -229,8 +230,7 @@ const treasureList = {
   GodKnows: new Treasure('GodKnows', ['TheSixth']),
   ChefKnows: new Treasure('ChefKnows'),
   DoctorKnows: new Treasure('DoctorKnows'),
-  AllKnows: new Treasure('AllKnows'),
-  CobraVenom: new Treasure('CobraVenom', ['AllKnows', 'GodKnows', 'ChefKnows', 'DoctorKnows'], true),
+  CobraVenom: new Treasure('CobraVenom', ['GodKnows', 'ChefKnows', 'DoctorKnows'], true),
   SourceOfHorus: new Treasure('SourceOfHorus', [], true),
 
   // 支線
