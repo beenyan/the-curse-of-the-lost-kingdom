@@ -30,7 +30,7 @@ function onDecode(decodedString) {
       else successed.currentTime = 0;
       const { data } = response;
       code.value = '';
-      alert.value.showAlert('success', data.msg);
+      alert.value.showAlert('success', data.msg, '');
     })
     .catch((error) => {
       if (failed.paused) failed.play();
