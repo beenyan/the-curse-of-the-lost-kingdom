@@ -88,7 +88,7 @@ class Treasure {
     // 檢查寶物是否已經取得
     const backpack = await this.isInBackpack(team_id);
     if (backpack) {
-      return back('貪婪者必將行以天罰。');
+      return back('龔行天罰於貪婪之人。');
     }
 
     // 檢查是否已取得依賴的寶物
@@ -109,7 +109,7 @@ class Treasure {
     }
 
     if (await this.inserToDb(team_id)) {
-      return back('寶物取得成功', true);
+      return back('此物賦予於汝，迎領汝揭開真相', true);
     }
   }
   async useHandler(team_id) {

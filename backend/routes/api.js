@@ -108,7 +108,7 @@ router.post('/backpack', async (req, res) => {
 
   if (!Object.prototype.hasOwnProperty.call(treasureList, code)) {
     // 寶物碼錯誤
-    return res.status(403).json({ msg: 'Treasure Code not found.' });
+    return res.status(403).json({ msg: '此物流迷於茫茫星海之中' });
   }
 
   // 新增寶物
@@ -130,7 +130,7 @@ router.post('/backpack/use', async (req, res) => {
 
   if (!Object.prototype.hasOwnProperty.call(treasureList, code)) {
     // 寶物碼錯誤
-    return res.status(403).json({ msg: 'Treasure Code not found.' });
+    return res.status(403).json({ msg: '此物流迷於茫茫星海之中' });
   }
 
   // 新增寶物

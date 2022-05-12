@@ -26,21 +26,21 @@ function onDecode(decodedString) {
   axios
     .post('/backpack', { code: code.value })
     .then((response) => {
+      if (successed.paused) successed.play();
+      else successed.currentTime = 0;
       const { data } = response;
       code.value = '';
       alert.value.showAlert('success', data.msg);
-      if (successed.paused) successed.play();
-      else successed.currentTime = 0;
     })
     .catch((error) => {
+      if (failed.paused) failed.play();
+      else failed.currentTime = 0;
       const { data } = error.response;
       if (data.hasOwnProperty('msg')) {
         alert.value.showAlert('error', '', data.msg);
         return;
       }
       alert.value.showAlert('error', '', '未知錯誤');
-      if (failed.paused) failed.play();
-      else failed.currentTime = 0;
     });
 }
 </script>

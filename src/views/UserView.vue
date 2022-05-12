@@ -18,6 +18,11 @@ const routerList = ref([
 </script>
 
 <style lang="scss">
+@mixin miniHeight {
+  @media (max-height: 400px) {
+    @content;
+  }
+}
 #router-list {
   position: absolute;
   display: inline-flex;
@@ -29,6 +34,14 @@ const routerList = ref([
   left: 50%;
   transform: translateX(-50%);
   height: 60px;
+  transition: 300ms;
+  @include miniHeight {
+    width: calc(100% - 150px);
+    top: 190px;
+    margin-left: 12px;
+    left: 0;
+    transform: translateX(0);
+  }
   .router-box {
     display: inline-flex;
     align-items: center;

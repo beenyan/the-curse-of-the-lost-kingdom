@@ -20,46 +20,49 @@ const { proxy } = getCurrentInstance();
 const axios = proxy.$axios;
 const code = ref('');
 const alert = ref();
-
 axios.defaults.baseURL = '/api';
 
 const sendPost = () => {
   const val = code.value.trim();
   if (val === '') {
+    if (failed.paused) failed.play();
+    else failed.currentTime = 0;
     alert.value.showAlert('error', '', '寶物代碼不能為空');
     return;
   }
   axios
     .post('/backpack', { code: code.value })
     .then((response) => {
+      if (successed.paused) successed.play();
+      else successed.currentTime = 0;
       const { data } = response;
       code.value = '';
       alert.value.showAlert('success', data.msg);
-      if (successed.paused) successed.play();
-      else successed.currentTime = 0;
     })
     .catch((error) => {
+      if (failed.paused) failed.play();
+      else failed.currentTime = 0;
       const { data } = error.response;
       if (data.hasOwnProperty('msg')) {
         alert.value.showAlert('error', '', data.msg);
         return;
       }
       alert.value.showAlert('error', '', '未知錯誤');
-      if (failed.paused) failed.play();
-      else failed.currentTime = 0;
     });
 };
 </script>
 
 <style lang="scss">
 #input {
+  --margin-top: 20px;
   background-color: #caf6fa;
   overflow: hidden;
   width: 94%;
   border-radius: 5px;
-  position: absolute;
-  top: 10%;
+  position: relative;
   height: 250px;
+  margin-top: var(--margin-top);
+  max-height: calc(100% - 2 * var(--margin-top));
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -101,7 +104,7 @@ const sendPost = () => {
     font-size: 12px;
   }
   .btn-box {
-    padding: 0 25px 30px 25px;
+    padding: 15px 25px 30px 25px;
     text-align: right;
     .btn-body {
       padding: 3px 15px;
