@@ -28,12 +28,12 @@ function onDecode(decodedString) {
     .then((response) => {
       if (successed.paused) successed.play();
       else successed.currentTime = 0;
-      console.log(response);
       const { data } = response;
       code.value = '';
       alert.value.showAlert('success', data.msg, '');
     })
     .catch((error) => {
+      console.log(error);
       if (failed.paused) failed.play();
       else failed.currentTime = 0;
       if (!error.response.hasOwnProperty('data')) {
