@@ -7,6 +7,8 @@
 
 <script setup>
 import { ref, getCurrentInstance } from 'vue';
+const successed = new Audio(new URL(`../assets/success.mp3`, import.meta.url).href);
+const failed = new Audio(new URL(`../assets/fail.mp3`, import.meta.url).href);
 const { proxy } = getCurrentInstance();
 const axios = proxy.$axios;
 const alert = ref();
@@ -27,6 +29,8 @@ function onDecode(decodedString) {
       const { data } = response;
       code.value = '';
       alert.value.showAlert('success', data.msg);
+      if (successed.paused) successed.play();
+      else successed.currentTime = 0;
     })
     .catch((error) => {
       const { data } = error.response;
@@ -35,6 +39,8 @@ function onDecode(decodedString) {
         return;
       }
       alert.value.showAlert('error', '', '未知錯誤');
+      if (failed.paused) failed.play();
+      else failed.currentTime = 0;
     });
 }
 </script>

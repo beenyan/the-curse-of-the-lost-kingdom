@@ -88,7 +88,7 @@ class Treasure {
     // 檢查寶物是否已經取得
     const backpack = await this.isInBackpack(team_id);
     if (backpack) {
-      return back('Already has it.');
+      return back('貪婪者必將行以天罰。');
     }
 
     // 檢查是否已取得依賴的寶物
@@ -96,9 +96,9 @@ class Treasure {
       const treasure = treasureList[treasureCode];
       const backpack = await treasure.isInBackpack(team_id);
       if (!backpack) {
-        return back("Didn't has depend treasure.");
+        return back('未集齊條件者，無權獲取。');
       } else if (backpack.isUsed) {
-        return back('The depend treasure already be used.');
+        return back('已耗盡蘊藏其中之靈力。§');
       }
     }
 
@@ -116,7 +116,7 @@ class Treasure {
     if (!this.consumables) {
       return back('This treasure cannot be used.');
     } else if (await this.isUsed(team_id)) {
-      return back('This treasure already be used.');
+      return back('已耗盡蘊藏其中之靈力。');
     }
 
     // 使用此寶物
@@ -139,7 +139,7 @@ class KindTreasure extends Treasure {
     // 檢查寶物是否已經取得
     const backpack = await this.isInBackpack(team_id);
     if (backpack) {
-      return back('Already has it.');
+      return back('貪婪者必將行以天罰。');
     }
 
     // 檢查是否已取得依賴的寶物
@@ -147,9 +147,9 @@ class KindTreasure extends Treasure {
       const treasure = treasureList[treasureCode];
       const backpack = await treasure.isInBackpack(team_id);
       if (!backpack) {
-        return back("Didn't has depend treasure.");
+        return back('未集齊條件者，無權獲取。');
       } else if (backpack.isUsed) {
-        return back('The depend treasure already be used.');
+        return back('已耗盡蘊藏其中之靈力。§');
       }
     }
 
@@ -167,13 +167,13 @@ class KindTreasure extends Treasure {
     if (!this.consumables) {
       return back('This treasure cannot be used.');
     } else if (await this.isUsed(team_id)) {
-      return back('This treasure already be used.');
+      return back('已耗盡蘊藏其中之靈力。');
     }
 
     // 使用此寶物
     await db.query('UPDATE team SET kind = kind + ? WHERE id = ?', [this.val, team_id]);
     this.removeHandler(team_id);
-    return back('似乎有東西發生了微妙變化。', true);
+    return back('有東西似乎發生了微妙變化。', true);
   }
 }
 
@@ -193,8 +193,7 @@ const treasureList = {
   Ramses6a6y: new Treasure('Ramses6a6y', ['Max6a6y', 'BoneBoneBone'], true),
   Illusions: new Treasure('Illusions'),
   Paraohmask: new Treasure('Paraohmask'),
-  Overmydeadbody: new Treasure('Overmydeadbody'),
-  Shitbeetles: new Treasure('Shitbeetles', ['Illusions', 'Paraohmask', 'Overmydeadbody']),
+  Shitbeetles: new Treasure('Shitbeetles', ['Illusions', 'Paraohmask']),
   Finallyucango: new Treasure('Finallyucango', ['Shitbeetles'], true),
   LionMao: new Treasure('LionMao'),
   MaskPeitai: new Treasure('MaskPeitai'),
@@ -206,12 +205,10 @@ const treasureList = {
   UglyFlower: new Treasure('UglyFlower'),
   GodTear: new Treasure('GodTear', ['C37', 'GoldSilverMoney', 'UglyFlower'], true),
   arcanapoke: new Treasure('arcanapoke'),
-  materiasss: new Treasure('materiasss', ['arcanapoke']),
-  materiastone: new Treasure('materiastone', ['materiasss']),
-  solaramber: new Treasure('solaramber'),
+  materiastone: new Treasure('materiastone', ['arcanapoke']),
   setekhskeletal: new Treasure('setekhskeletal'),
   blazeanima: new Treasure('blazeanima'),
-  mamahaha: new Treasure('mamahaha', ['blazeanima', 'setekhskeletal', 'solaramber']),
+  mamahaha: new Treasure('mamahaha', ['blazeanima', 'setekhskeletal']),
   sandstormlance: new Treasure('sandstormlance', ['mamahaha', 'materiastone']),
   annnkaaa: new Treasure('annnkaaa', ['sandstormlance'], true),
   konpinla1: new Treasure('konpinla1'),
