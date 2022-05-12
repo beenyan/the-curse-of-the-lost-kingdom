@@ -24,7 +24,7 @@ function logErrors(promise) {
 function onDecode(decodedString) {
   const code = decodedString.trim();
   axios
-    .post('/backpack', { code: code.value })
+    .post('/backpack', { code })
     .then((response) => {
       if (successed.paused) successed.play();
       else successed.currentTime = 0;

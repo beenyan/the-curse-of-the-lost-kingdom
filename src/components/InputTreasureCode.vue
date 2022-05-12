@@ -31,7 +31,7 @@ const sendPost = () => {
     return;
   }
   axios
-    .post('/backpack', { code: code.value })
+    .post('/backpack', { code: val })
     .then((response) => {
       if (successed.paused) successed.play();
       else successed.currentTime = 0;
