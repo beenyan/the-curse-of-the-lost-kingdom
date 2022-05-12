@@ -37,7 +37,7 @@ const routerList = ref([
   transition: 300ms;
   @include miniHeight {
     width: calc(100% - 150px);
-    top: 190px;
+    top: min(190px, 100% - 60px - 20px - 15px);
     margin-left: 12px;
     left: 0;
     transform: translateX(0);
