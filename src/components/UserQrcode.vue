@@ -28,7 +28,7 @@ function onDecode(decodedString) {
     .then((response) => {
       if (successed.paused) successed.play();
       else successed.currentTime = 0;
-      alert(response);
+      console.log(response);
       const { data } = response;
       code.value = '';
       alert.value.showAlert('success', data.msg, '');
