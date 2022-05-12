@@ -42,12 +42,15 @@ const sendPost = () => {
     .catch((error) => {
       if (failed.paused) failed.play();
       else failed.currentTime = 0;
+      if (!error.response.hasOwnProperty('data')) {
+        alert.value.showAlert('error', '', '未知錯誤');
+        return;
+      }
       const { data } = error.response;
       if (data.hasOwnProperty('msg')) {
         alert.value.showAlert('error', '', data.msg);
         return;
       }
-      alert.value.showAlert('error', '', '未知錯誤');
     });
 };
 </script>
