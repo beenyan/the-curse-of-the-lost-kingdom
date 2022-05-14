@@ -184,7 +184,7 @@ const treasureList = {
   SleepYandSand: new Treasure('SleepYandSand'),
   ComePass: new Treasure('ComePass', ['Compass', 'SkyEnglish', 'SleepYandSand'], true),
   ComePassPuzzle: new Treasure('ComePassPuzzle', ['ComePass']),
-  NORTHWATER: new Treasure('NORTHWATER'),
+  NORTHWATER: new Treasure('NORTHWATER', ['ComePassPuzzle']),
   BoneBoneBone: new Treasure('BoneBoneBone', ['NORTHWATER']),
   '0x480x650x78': new Treasure('0x480x650x78'),
   FreshPootau: new Treasure('FreshPootau'),
