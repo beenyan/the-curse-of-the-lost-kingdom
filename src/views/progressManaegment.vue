@@ -58,7 +58,7 @@
               <img
                 width="80px"
                 class="img un-used"
-                :src="'/src/assets/img/' + img + '.png'"
+                :src="imgUrl(img)"
                 v-for="img of team.data.backpack.unUsed"
                 :key="img"
               />
@@ -70,7 +70,7 @@
               <img
                 width="40px"
                 class="img used"
-                :src="'/src/assets/img/miniSize/' + img + '.png'"
+                :src="imgMiniUrl(img)"
                 v-for="img of team.data.backpack.used"
                 :key="img"
               />
@@ -98,6 +98,14 @@ const chooseObj = {
   2: '現實線',
 };
 let interval;
+
+function imgUrl(imgName) {
+  return new URL(`../assets/img/${imgName}.png`, import.meta.url).href;
+}
+
+function imgMiniUrl(imgName) {
+  return new URL(`../assets/img/miniSize/${imgName}.png`, import.meta.url).href;
+}
 
 function preprocessing(teams) {
   let index = 0;
