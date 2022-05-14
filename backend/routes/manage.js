@@ -147,11 +147,18 @@ router.post('/team', (req, res) => {
  * @deprecated 取的所有隊伍進度
  */
 router.get('/team_progress', async (req, res) => {
-  const [teamList] = await db.query('SELECT * FROM team ORDER BY `choose` DESC, `horus` DESC, `kind` DESC');
-  const [backpackList] = await db.query('SELECT * FROM backpack');
-  for (const team of teamList) {
-    team.treasureList = backpackList.filter((backpack) => backpack.team_id === team.id);
-  }
+  const sql = `
+  SELECT 
+    t.*, 
+    count(b.id) AS treasure_count,
+    GROUP_CONCAT(b.treasure_code) AS treasure_name,
+    GROUP_CONCAT(b.is_used) AS treasure_label 
+  FROM team AS t
+  LEFT JOIN backpack AS b ON b.team_id = t.id
+    GROUP BY t.id
+    ORDER BY \`choose\` DESC, \`horus\` DESC, \`treasure_count\` DESC, \`kind\` DESC
+  `;
+  const [teamList] = await db.query(sql);
   return res.json(teamList);
 });
 
